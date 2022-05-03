@@ -44,13 +44,15 @@ arrayElement.forEach(item => {
 ```
 
 Se da un inconveniente con las dos opciones, se genera REFLOW.
-* El REFLOW es cuando la pagina se reinicia por cada elemento agregado.
-* El REFLOW es un problema cuando tenemos una gran cantidad de elementos.
+* El *REFLOW* es cuando la pagina se reinicia por cada elemento agregado.
+* El *REFLOW* es un problema cuando tenemos una gran cantidad de elementos.
 
 ---
 
 ## CLASE #4: Fragment + createElement (no más reflow)
 Este método es el RECOMENDABLE al añadir una lista de elementos.
+
+El *fragment* se guarda en una memoria volatil y no se renderiza en nuestro DOM hasta que se lo indiquemos, todo esto reduciendo la interferencia en el flujo de ejecución, disminuyendo así el *REFLOW*.
 
 ### Capturamos el id 'lista'
 Debido a que no contamos con varias clases, podemos usar id.
@@ -479,6 +481,11 @@ Antes de comenzar, debemos conocer:
     > - Los valores primitivos son inmutables (están codificados y no se pueden cambiar). Por ejemplo:
     >
     >   `si x = 3,14, puede cambiar el valor de x, pero no puede cambiar el valor de 3,14.`
+
+> **Notas:** 
+>
+> - En Javascript no existen arrays asociativos (útiles en la programación). Si queremos usar algo parecido a un *array asociativo* tendremos que utilizar las *construcciones de objetos* (Por ejemplo: `const obj = {a:'Juan', b:'Carlos', c:'JuanDev'}`).
+> - Los *arrays asociativos* son aquellos que no tienen índices numéricos sino alfabéticos
     
 4. `DOMContentLoaded`:
     - El *evento* `DOMContentLoaded` se activa cuando el *documento HTML*, inicial, ha sido completamente cargado y analizado (parseado) por completo. Todo lo contrario a, esperar a que las hojas de estilo CSS, imagenes y submarcos tereminen cargar.
@@ -494,10 +501,8 @@ Antes de comenzar, debemos conocer:
     - Es un tipo de evento(`event`) como el `click`, `keydown`, etc. Que podemos usar dentro de `addEventListener`
     - Fuentes: [Mozilla](https://developer.mozilla.org/en-US/docs/Web/API/Window/DOMContentLoaded_event), [Parzibyte's](https://parzibyte.me/blog/2019/12/05/domcontentloaded-javascript/)
 
-> **Notas:** 
->
-> - En Javascript no existen arrays asociativos (útiles en la programación). Si queremos usar algo parecido a un *array asociativo* tendremos que utilizar las *construcciones de objetos* (Por ejemplo: `const obj = {a:'Juan', b:'Carlos', c:'JuanDev'}`).
-> - Los *arrays asociativos* son aquellos que no tienen índices numéricos sino alfabéticos
+5. `Element.setAttribute()`:
+    - https://developer.mozilla.org/es/docs/Web/API/Element/setAttribute
 
 ## Para la contrucción del carrito
 
@@ -535,5 +540,35 @@ Antes de comenzar, debemos conocer:
         } catch (error) {
             console.log(error)
         }
+    }
+    ```
+* Usamos `forEach` para el JSON, debido a que los *cards* son una **colección de arrays**.
+    ```javascript
+    // Renderizamos los cards
+    const pintarCard = data => {
+        // console.log(data)
+
+        // forEach, los datos del JSON son una colección de arrays
+        data.forEach(producto => { 
+            console.log(producto)
+        });
+
+    }
+    ```
+* Antes de renderizar todos los elementos de `api.json`, debemos ir visualizando que cada elemento que agreguemos funcione correctamente.
+    ```javascript
+    // Primera visualización de los cards con los título y los botones
+
+    const pintarCard = data => {
+    // console.log(data)
+
+    // Colección de arrays
+    data.forEach(producto => {
+        templateCard.querySelector('h5').textContent = producto.title;
+
+        const clone = templateCard.cloneNode(true); // clonamos nuestro template
+        fragment.appendChild(clone); // Agregamos clone a fragment
+    });
+    items.appendChild(fragment); // Pasamos el fragment a items
     }
     ```

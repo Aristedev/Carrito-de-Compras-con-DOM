@@ -12,8 +12,26 @@
     <div class="container">
         <h1>Carrito</h1>
         <br>
+        
+        <!--Lugar donde irán las cards-->
+        <div class="row" id="items"></div>
+        
     </div>
 
+    <template id="template-card">
+        <!--- Imagen agregada según la documentación de Bootstrap -->
+        <div class="col-12 mb-2 col-md-4">
+            <div class="card">
+                <!-- Imagen agregada según la documentación de Bootstrap -->
+                <img src="" alt="" class="img-card-top">
+                <div class="card-body">
+                    <h5>Titulo</h5>
+                    <p>precio</p>
+                    <button class="btn btn-dark">Comprar</button>
+                </div>
+            </div>
+        </div>
+    </template>
 
     <script src="./app.js"></script>
 </body>

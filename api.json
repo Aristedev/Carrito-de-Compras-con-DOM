@@ -3,25 +3,25 @@
         "precio": 23.90,
         "id": 1,
         "title": "Nescafe",
-        "thumbnailURL": "https://picsum.photos/id/0/600"
+        "thumbnailUrl": "https://picsum.photos/id/0/600"
     },
     {
         "precio": 3.60,
         "id": 2,
         "title": "Leche",
-        "thumbnailURL": "https://picsum.photos/id/10/600"
+        "thumbnailUrl": "https://picsum.photos/id/10/600"
     },
     {
         "precio": 1.0,
         "id": 3,
         "title": "Agua",
-        "thumbnailURL": "https://picsum.photos/id/20/600"
+        "thumbnailUrl": "https://picsum.photos/id/20/600"
     },
     {
         "precio": 2.50,
         "id": 4,
         "title": "Fideo",
-        "thumbnailURL": "https://picsum.photos/id/30/600"
+        "thumbnailUrl": "https://picsum.photos/id/30/600"
     },
     {
         "precio": 3.99,
