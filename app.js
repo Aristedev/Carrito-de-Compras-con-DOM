@@ -27,6 +27,7 @@ const pintarCard = data => {
         templateCard.querySelector('h5').textContent = producto.title;
         templateCard.querySelector('p').textContent = producto.precio;
         templateCard.querySelector('.img-card-top').setAttribute("src", producto.thumbnailUrl);
+        templateCard.querySelector('.btn-dark').dataset.id = producto.id;
 
         const clone = templateCard.cloneNode(true); // clonamos nuestro template
         fragment.appendChild(clone); // Agregamos clone a fragment
@@ -34,4 +35,4 @@ const pintarCard = data => {
     items.appendChild(fragment); // Pasamos el fragment
 }
 
-// 20:02 min
+// 27:11min

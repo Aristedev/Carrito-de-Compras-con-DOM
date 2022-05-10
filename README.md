@@ -502,7 +502,96 @@ Antes de comenzar, debemos conocer:
     - Fuentes: [Mozilla](https://developer.mozilla.org/en-US/docs/Web/API/Window/DOMContentLoaded_event), [Parzibyte's](https://parzibyte.me/blog/2019/12/05/domcontentloaded-javascript/)
 
 5. `Element.setAttribute()`:
-    - https://developer.mozilla.org/es/docs/Web/API/Element/setAttribute
+    - Establece el valor de un atributo en el elemento indicado. Es decir, tomamos el nombre del atributo de HTML y le damos un valor. 
+    - Si el atributo ya existe, el valor es actualizado, en caso contrario, el nuevo atributo es añadido con el nombre y valor indicado.
+    - Sintaxis: 
+        `Element.setAttribute(name, value);`
+        * *name* = El nombre del atributo se convierte automáticamente en minúsculas cuando `setAttribute()` se llama sobre un elemento HTML en un documento HTML.
+        * *value* = Cualquier valor indicado que no sea una cadena de texto se convierte automáticamente en una cadena de texto.
+
+    - Ejm:
+        
+        * Se actualiza el valor de uno de los atributos de HTML.
+
+            ```html
+                <input type="text" id="myInput" value="1er mensaje"/>
+            ```
+
+            ```javascript
+                let valCambiado = document.getElementById('myInput').setAttribute('vale', '2do mensaje');
+                console.log(valCambiado); // <input type="text" id="myInput" value="2do mensaje"/>
+            ```
+            
+        * Si el atributo nombrado no se encuentra en el elemento HTML, se agrega con su valor respectivo.
+
+            ```html
+                <input type="text" value="1er mensaje"/>
+            ```
+
+            ```javascript
+                let inputClass = document.querySelector('input');
+                inputClass.setAttribute('class', 'inName');
+                console.log(inputClass); // <input type="text" class="inName" value="1er mensaje"/>
+            ```
+    - Los *atributos booleanos* se consideran `true` si al menos están presentes en el elemento, independientemente de su `value` actual. Por lo tanto, como regla, se debería especificar una cadena de texto vacía ("") en `value` si deseamos obtener `true`.
+    - En los *atributos booleanos*, la ausencia del atributo significa que su valor es `false`.
+    - Si deseamos eliminar un atributo usar `removeAttribute()` y no `null`(en el `value`), ya que pueden dar resultados no deseados.
+
+    - Fuente: [Mozilla](https://developer.mozilla.org/es/docs/Web/API/Element/setAttribute), [dcode](https://www.youtube.com/watch?v=yc-AeIdRVEI&ab_channel=LaCocinadelC%C3%B3digo)
+
+    > **Nota:**
+    >
+    > Para obtener el valor actual de un atributo, se utiliza `getAttribute();` para eliminar un atributo, se llama a `removeAttribute()`.
+
+6. Atributo de datos `data-*` en HTML5:
+    - Al indicar el atributo `data-*`, estamos agregando datos en el mismo *elemento HTML* que no queremos que se renderizen pero posteriormente estos datos pueden ser usados en el DOM.
+    - Forma una clase de atributos, llamados *atributos de datos personalizados* (*custom data attributes*), que permiten el intercambio de información patentada entre el *HTML* y su *DOM* que pueden usar los *scripts*, sin tener que recurrir a atributos no estandar (DOM o `Node.setUserData()`).
+    - Los atributos `data-*`  permiten almacenar información adicional sobre un elemento *HTML*.
+    - Si queremos acceder al `ElementoHMTL` seleccionado, usamos al propiedad `ElementoHMTL.dataset`.
+        ```html
+        <div id="user" data-id="1234567890" data-user="johndoe" data-date-of-birth>John Doe</div>
+
+        ```
+        ```javascript
+        const el = document.querySelector('#user');
+        el.dataset.dateOfBirth = '1960-10-03'; // accedemos a data-date-of-birth
+        // Resultado en JS: el.dataset.dateOfBirth === '1960-10-03'
+        // Result en HTML: <div id="user" data-id="1234567890" data-user="johndoe" data-date-of-birth="1960-10-03">John Doe</div>
+        ```
+    - En CSS: Los valores de `data-*` son cadenas de caracteres. Por lo tanto, los valores numéricos deben ser citados en el *selector* para que el estilo surta efecto. Ejm:
+        ```html
+        <article
+        id="electriccars"
+        data-columns="3"
+        data-index-number="12314"
+        data-parent="cars">
+        ...
+        </article>
+        ```
+
+        * Para mostrar los `data-parent` en el `article`:
+            ```css
+            article::before {
+            content: attr(data-parent);
+            }
+            ```
+        
+        * Para cambiar los estilos de acuerdo a las propiedades de datos:
+            ```css
+            article[data-columns='3'] {
+            width: 400px;
+            }
+            article[data-columns='4'] {
+            width: 600px;
+            }
+            ```
+    - **Advertencias:**
+        * No almacene el contenido que debería ser visible y accesible en los atributos de datos, ya que las tecnologías de asistencia, no pueden acceder a ellos.
+        * Los rastreadores de búsqueda no pueden indexar los valores de los atributos de datos.
+
+    > **Nota:**
+    > 
+    > **Indexar** es la acción por la cual los robots (o bots) de rastreo de Google encuentran nuestro contenido, nuestro site, y lo registran en sus bases de datos. Como resultado, cuando se realicen busquedas serán posicionados en los resultados.
 
 ## Para la contrucción del carrito
 
@@ -572,3 +661,13 @@ Antes de comenzar, debemos conocer:
     items.appendChild(fragment); // Pasamos el fragment a items
     }
     ```
+* El atributo `data-id=""` no lo agregamos directamente a `<button></button>` del `index.html`, ya que este tiene que ser dinámico para cada uno de los `id`s del `api.json`.
+
+* Para agregar los `id`s a cada uno de sus respectivos `<button>`s, usamos `dataset` (Revisar *5. `Element.setAttribute()`*).
+    ```javascript
+    templateCard.querySelector('.btn-dark').dataset.id = producto.id;
+    ```
+
+> **Nota:**
+>
+> - Para volver a la terminal luego de hacer un `git log` en **git**, presionamos **q**. De esta forma salimos de la *lista de estado de git*. [ajaxhispano](https://ajaxhispano.com/ask/como-salir-de-git-log-o-git-diff-duplicar-1284/)
