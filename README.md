@@ -547,7 +547,7 @@ Antes de comenzar, debemos conocer:
     - Al indicar el atributo `data-*`, estamos agregando datos en el mismo *elemento HTML* que no queremos que se renderizen pero posteriormente estos datos pueden ser usados en el DOM.
     - Forma una clase de atributos, llamados *atributos de datos personalizados* (*custom data attributes*), que permiten el intercambio de información patentada entre el *HTML* y su *DOM* que pueden usar los *scripts*, sin tener que recurrir a atributos no estandar (DOM o `Node.setUserData()`).
     - Los atributos `data-*`  permiten almacenar información adicional sobre un elemento *HTML*.
-    - Si queremos acceder al `ElementoHMTL` seleccionado, usamos al propiedad `ElementoHMTL.dataset`.
+    - Si queremos **acceder al `ElementoHMTL`** seleccionado, usamos al **propiedad `ElementoHMTL.dataset`**.
         ```html
         <div id="user" data-id="1234567890" data-user="johndoe" data-date-of-birth>John Doe</div>
 
@@ -592,6 +592,40 @@ Antes de comenzar, debemos conocer:
     > **Nota:**
     > 
     > **Indexar** es la acción por la cual los robots (o bots) de rastreo de Google encuentran nuestro contenido, nuestro site, y lo registran en sus bases de datos. Como resultado, cuando se realicen busquedas serán posicionados en los resultados.
+
+7. `Node.parentElement`:
+    - Si tenemos `target` en el `addEventListener('click', ...)`, con la propiedad `.parentElement` selecionamos todo el elemento padre de donde dimos `click`. Teniendo en cuenta que donde damos `click` es el elemento hijo de un elemento padre.
+    - Es una propiedad de sólo lectura.
+    - Devuelve el *nodo padre* del *DOM Element* (elementos del DOM), o `null`, si el *nodo* no tiene padre o si el padre no es un  *DOM Element*.
+        ```javascript
+        document.body.parentNode; // Returns the <html> element
+        document.body.parentElement; // Returns the <html> element
+
+        document.documentElement.parentNode; // Returns the Document node
+        document.documentElement.parentElement; // Returns null (<html> does not have a parent ELEMENT node) 
+        ```
+    - Sintaxis:
+        `elementoPadre = node.parentElement`
+        * *elementoPadre* = padre del nodo actual
+    - Fuentes: [Mozilla](https://developer.mozilla.org/es/docs/Web/API/Node/parentElement), [w3schools](https://www.w3schools.com/jsref/prop_node_parentelement.asp)
+    
+    > **Notas:**
+    > - HTML Nodes vs Elements:
+    >   * En *HTML DOM*, un documento HTML es una colección de nodos con (o sin) nodos secundarios.
+    >   * Los **Nodos** son *nodos de elementos*, *nodos de texto* y *nodos de comentarios*.
+    >   * Los **Elementos** son solo *nodos de elementos*.
+    >   * Los *espacios en blanco* entre elementos también son *nodos de texto*.
+    >
+    > - childNodes vs children:
+    >   * `childNodes` devuelve *nodos* hijos (nodos de elementos, nodos de texto y nodos de comentarios).
+    >   * `children` devuelve *elementos hijos* (no nodos de texto ni nodos comentario).
+    >
+    > - Siblings vs Element Siblings:
+    >   * **Siblings** son "hermanos" y "hermanas".
+    >   * **Siblings** son nodos con el mismo padre (en la misma lista de `chilNodes`)
+    >   * **Elementos Hermanos** son elementos con el mismo padre(en la misma lista de `children`)
+
+
 
 ## Para la contrucción del carrito
 
@@ -666,6 +700,39 @@ Antes de comenzar, debemos conocer:
 * Para agregar los `id`s a cada uno de sus respectivos `<button>`s, usamos `dataset` (Revisar *5. `Element.setAttribute()`*).
     ```javascript
     templateCard.querySelector('.btn-dark').dataset.id = producto.id;
+
+* Delegación del evento en el boton de compra de las cards:
+    ```javascript
+    // Objeto vacío para agregar elementos en el
+    let carrito = {};
+    // Event delegation con el boton de compra
+    items.addEventListener('click', e => { // variable e para el evento
+        addCarrito(e);
+    })
+
+    const addCarrito = e => {
+    // console.log(e.target);
+    // console.log(e.target.classList.contains('btn-dark'));
+    if(e.target.classList.contains('btn-dark')) {
+        // console.log(e.target.parentElement)
+        setCarrito(e.target.parentElement) // tomamos todo el elemento del card con parenElement
+    }
+    e.stopPropagation(); // Para evitar que se hereden fuera del nodo seleccionado
+    }
+
+    // Lógica del carrito
+    const setCarrito = objeto => { // recibimos un objeto
+        // console.log(objeto);
+        const producto = {
+            // 
+            id: objeto.querySelector('.btn-dark').dataset.id,
+            title: objeto.querySelector('h5').textContent,
+            precio: objeto.querySelector('p').textContent,
+            cantidad: 1, // Unidad del producto
+        }
+        
+        console.log(producto);
+    }
     ```
 
 > **Nota:**
