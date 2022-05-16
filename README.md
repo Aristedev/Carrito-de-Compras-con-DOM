@@ -395,21 +395,23 @@ Antes de comenzar, debemos conocer:
 
 2. `.hasOwnProperty()`:
     - Traductor: "Tiene propiedad propia"
-    - El método `.hasOwnProperty()` devuelve un *booleano* indicando si el **objeto** tiene la *propiedad especificada*.
+    - El método `.hasOwnProperty()` devuelve un *booleano* (`true` o `false`) indicando si el **objeto** tiene la *propiedad especificada*.
     - Sintaxis: 
         `obj.hasOwnProperty(prop)`
         * *prop* = nombre de la propiedad a buscar
     - Determina si un objeto tiene la *propiedad especificada* como una **propiedad directa de ese objeto**; ya que a diferencia del operador `in`, este *método* **no verifica la *cadena prototipo* del objeto**.
-    - podemos usarlo para comprobar si tenemos un **objeto vacío**.
+    - Podemos usarlo para comprobar si tenemos un **objeto vacío**. Opciones:
         ```javascript
         // 1era Opción: Con Object.keys()
         let obj = {};
         console.log( Object.keys(obj).length === 0 ) // true
 
         // 2da opción: Con Obj.hasOwnProperty()
-        function objetoVacio(obj) {
-        for (var prop in obj) {
-            if (obj.hasOwnProperty(prop)) return false;
+        function objetoVacio(obj) { // Función verificadora de objetos vacíos
+        for (let prop in obj) {
+            if (obj.hasOwnProperty(prop)) return false; // Si obj.hasOwnProperty(prop) es true, entonces, retorna false.
+            
+            // Es decir, si verificamos que el objeto tiene una propiedad(no esta vacío y obj.hasOwnProperty(prop) es true), entonces negamos(false) la función verificadora(objetoVacio()) al no estar vacío.
         }
         return true;
         }

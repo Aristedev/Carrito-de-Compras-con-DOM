@@ -62,4 +62,4 @@ const setCarrito = objeto => { // recibimos un objeto
     console.log(producto);
 }
 
-// 36:07min logica de la cantidad de los productos
+// 37:01min logica de la cantidad de los productos
