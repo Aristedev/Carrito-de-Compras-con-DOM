@@ -58,8 +58,15 @@ const setCarrito = objeto => { // recibimos un objeto
         precio: objeto.querySelector('p').textContent,
         cantidad: 1, // Unidad del producto
     }
+
+    // Suma de cantidad de productos, si queremos el mismo producto
+    if(carrito.hasOwnProperty(producto.id)) {
+        producto.cantidad = carrito[producto.id].cantidad + 1
+    }
+
+    carrito[producto.id] = {...producto}
     
     console.log(producto);
 }
 
-// 37:01min logica de la cantidad de los productos
+// 38:48min agregamos el objeto `producto` lo agregamos al objeto `carrito`

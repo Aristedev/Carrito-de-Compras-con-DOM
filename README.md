@@ -393,7 +393,7 @@ Antes de comenzar, debemos conocer:
         > `+=` *Operador de asignación de suma*. Podemos realizar operaciones de suma y *concatenación* en el caso de los *strings* o variables. *Concatenar* es una elegante palabra de la programación que significa: "unir". [Mozilla](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Addition_assignment)
     - Fuentes: [for_in_en_Javascript](https://desarrolloweb.com/articulos/recorridos-propiedades-objetos-javascript-forin.html), [Mozilla](https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Statements/for...in), [w3school](https://www.w3schools.com/js/js_loop_forin.asp)
 
-2. `.hasOwnProperty()`:
+2. `obj.hasOwnProperty()`:
     - Traductor: "Tiene propiedad propia"
     - El método `.hasOwnProperty()` devuelve un *booleano* (`true` o `false`) indicando si el **objeto** tiene la *propiedad especificada*.
     - Sintaxis: 
@@ -627,6 +627,18 @@ Antes de comenzar, debemos conocer:
     >   * **Siblings** son nodos con el mismo padre (en la misma lista de `chilNodes`)
     >   * **Elementos Hermanos** son elementos con el mismo padre(en la misma lista de `children`)
 
+8. Indexación de objetos
+    - https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/Array
+    https://developer.mozilla.org/es/docs/Web/JavaScript/Guide/Indexed_collections
+
+8. Spread Operator `...`
+    - https://www.programiz.com/javascript/spread-operator
+    - https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Operators/Spread_syntax
+    - **Spread Operator VS Rest Parameters**
+        * *Spread Operator* expande, mientras *Rest Parameters* condensa.
+        https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Operators/Spread_syntax (ultima parte)
+    -Rest paratemeters o parámetros Rest
+    https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Functions/rest_parameters
 
 
 ## Para la contrucción del carrito
@@ -736,6 +748,19 @@ Antes de comenzar, debemos conocer:
         console.log(producto);
     }
     ```
+
+* Si deseamos comprar mas de un elemento presionando varias veces el boton de comprar:
+    ```javascript
+    // Suma de cantidad de productos, si queremos el mismo producto
+    if(carrito.hasOwnProperty(producto.id)) {
+        producto.cantidad = carrito[producto.id].cantidad + 1
+    }
+    ```
+    En `carrito[producto.id].cantidad` 
+    - `carrito[]` es toda nuestra colección de objetos.
+    - `[producto.id]` es el elemento que se esta repitiendo dentro de un objeto.
+    - `carrito[producto.id]` elemento que se repite dentro del objeto `carrito`.
+    - `carrito[producto.id].cantidad`, accedemos a la `cantidad` del elemento que se esta repitiendo dentro del objeto `carrito`.
 
 > **Nota:**
 >
