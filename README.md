@@ -628,8 +628,74 @@ Antes de comenzar, debemos conocer:
     >   * **Elementos Hermanos** son elementos con el mismo padre(en la misma lista de `children`)
 
 8. Indexación de objetos
-    - https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/Array
-    https://developer.mozilla.org/es/docs/Web/JavaScript/Guide/Indexed_collections
+    - **Array**: 
+        * Es el Objeto Array es un *Objeto Global* de JavaScript que es usado en la construcción de *arrays*.
+        * Son objetos tipo lista de alto nivel.
+        * Tanto la longitud como el tipo de los elementos de un **array** son variables.
+        * Para crear un **Array**:
+            ```javascript
+            let frutas = ["Manzana", "Banana", "Guayaba"]
+            console.log(frutas.length) // 3
+            ```
+            * Para acceder a un elemento de **Array** mediante su índice (**index**), es decir, *indexamos el array*:
+            ```javascript
+            let primero = frutas[0] // Manzana
+            let ultimo = frutas[frutas.length - 1] // Guayaba
+            ```
+    
+    - **ArrayBuffer**: El objeto *ArrayBuffer* se usa para representar un buffer genérico, de datos binarios brutos con una longitud específica. Tambien conocido como *arreglo de bytes* en otros lenguajes de programación.
+        * No se puede manipular directamente el contenido de un ArrayBuffer, por lo tanto se crea se crea un *TypedArray* (objetos de arreglos tipados) o un objeto *DataView* para representar el *buffer* en un formato específico y su respectiva lectura y modificación del contenido del buffer.
+        * Para crear un *ArrayBuffer*:
+        
+            ```javascript
+            // Creamos un buffer de 8 bytes con una vista (DataView) Int32Array consultando el buffer.
+            // Int32Array ->8 bytes = 2^8 bites = 32 bites
+            const buffer = new ArrayBuffer(8);
+            const view = new Int32Array(buffer);
+            ```
+
+    > **Nota**:
+    >
+    > Un *búfer* es un espacio en la memoria (en general, RAM) que almacena datos binarios.
+
+    - **TypedArray** (objetos de arreglos tipados): 
+        * Un objeto *TypedArray* describe una vista similar a un arreglo de un *búfer de datos binarios subyacente*.
+        * No se puede crear una instancia (heredar) de este objeto directamente. En su lugar, crea una *instancia de un arreglo* de un tipo particular, tal como `Int8Array` o `BigInt64Array`.
+            ```javascript
+            new TypedArray(); // TypedArray() -> Int8Array() o BigInt64Array()
+            new TypedArray(length);
+            new TypedArray(typedArray);
+            new TypedArray(object);
+            new TypedArray(buffer [, byteOffset [, length]]);
+            ```
+        * No existe una propiedad global denominada TypedArray, ni existe un constructor TypedArray directamente visible.
+        * Tenemos una serie de diferentes propiedades globales, cuyos valores son *constructores de arreglos tipados* para tipos de elementos específicos.
+            ```javascript
+            // Creamos un TypedArray con su tamaño en bites
+            const typedArray1 = new Int8Array(8);
+            typedArray1[0] = 32; // accedemos a la propiedad
+
+            const typedArray2 = new Int8Array(typedArray1);
+            typedArray2[1] = 42; // accedemos a la propiedad
+
+            console.log(typedArray1); // Int8Array [32, 0, 0, 0, 0, 0, 0, 0]
+            console.log(typedArray2); // Int8Array [32, 42, 0, 0, 0, 0, 0, 0]
+            ```
+        * **OJO:** A partir de *ECMAScript 2015*, los constructores *TypedArray* se deben construir con el operador `new`. Llamar a un constructor *TypedArray* como una función sin *new* arrojará un TypeError.
+            ```javascript
+            let dv = Int8Array([1, 2, 3]);
+            // TypeError: llamar a un constructor Int8Array incorporado sin new es incorrecto
+
+            let dv = new Int8Array([1, 2, 3]); // Es correcto
+            ```
+
+    - **Colecciones indexadas**:
+        * Colecciones de datos ordenados por un valor de índice.
+        * Incluye *arreglos* y *construcciones* similares a arreglos tal como objetos *Array* y objetos *TypedArray*.
+    
+
+
+    - Fuentes: [Mozilla - Array](https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/Array), [Array Buffer](https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer), [Mozilla - TypedArray](https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/TypedArray), [Mozilla - Colecciones Indexadas](https://developer.mozilla.org/es/docs/Web/JavaScript/Guide/Indexed_collections)
 
 8. Spread Operator `...`
     - https://www.programiz.com/javascript/spread-operator
